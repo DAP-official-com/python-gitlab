@@ -16,7 +16,7 @@ class ProjectRelease(SaveMixin, RESTObject):
 
 
 class ProjectReleaseManager(CRUDMixin, RESTManager):
-    _path = "/projects/%(project_id)s/releases"
+    _path = "/projects/{project_id}/releases"
     _obj_cls = ProjectRelease
     _from_parent_attrs = {"project_id": "id"}
     _create_attrs = RequiredOptional(
@@ -32,7 +32,7 @@ class ProjectReleaseLink(ObjectDeleteMixin, SaveMixin, RESTObject):
 
 
 class ProjectReleaseLinkManager(CRUDMixin, RESTManager):
-    _path = "/projects/%(project_id)s/releases/%(tag_name)s/assets/links"
+    _path = "/projects/{project_id}/releases/{tag_name}/assets/links"
     _obj_cls = ProjectReleaseLink
     _from_parent_attrs = {"project_id": "project_id", "tag_name": "tag_name"}
     _create_attrs = RequiredOptional(

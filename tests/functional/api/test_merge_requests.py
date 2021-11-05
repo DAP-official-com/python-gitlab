@@ -27,9 +27,11 @@ def test_merge_requests(project):
             "commit_message": "New commit in new branch",
         }
     )
-    project.mergerequests.create(
+
+    mr = project.mergerequests.create(
         {"source_branch": "branch1", "target_branch": "main", "title": "MR readme2"}
     )
+    assert mr.id is not None
 
 
 def test_merge_request_discussion(project):

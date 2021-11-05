@@ -28,7 +28,7 @@ class RunnerJob(RESTObject):
 
 
 class RunnerJobManager(ListMixin, RESTManager):
-    _path = "/runners/%(runner_id)s/jobs"
+    _path = "/runners/{runner_id}/jobs"
     _obj_cls = RunnerJob
     _from_parent_attrs = {"runner_id": "id"}
     _list_filters = ("status",)
@@ -120,7 +120,7 @@ class GroupRunner(RESTObject):
 
 
 class GroupRunnerManager(ListMixin, RESTManager):
-    _path = "/groups/%(group_id)s/runners"
+    _path = "/groups/{group_id}/runners"
     _obj_cls = GroupRunner
     _from_parent_attrs = {"group_id": "id"}
     _create_attrs = RequiredOptional(required=("runner_id",))
@@ -133,7 +133,7 @@ class ProjectRunner(ObjectDeleteMixin, RESTObject):
 
 
 class ProjectRunnerManager(CreateMixin, DeleteMixin, ListMixin, RESTManager):
-    _path = "/projects/%(project_id)s/runners"
+    _path = "/projects/{project_id}/runners"
     _obj_cls = ProjectRunner
     _from_parent_attrs = {"project_id": "id"}
     _create_attrs = RequiredOptional(required=("runner_id",))

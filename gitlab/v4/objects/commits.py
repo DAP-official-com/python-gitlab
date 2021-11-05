@@ -135,7 +135,7 @@ class ProjectCommit(RESTObject):
 
 
 class ProjectCommitManager(RetrieveMixin, CreateMixin, RESTManager):
-    _path = "/projects/%(project_id)s/repository/commits"
+    _path = "/projects/{project_id}/repository/commits"
     _obj_cls = ProjectCommit
     _from_parent_attrs = {"project_id": "id"}
     _create_attrs = RequiredOptional(
@@ -150,7 +150,7 @@ class ProjectCommitComment(RESTObject):
 
 
 class ProjectCommitCommentManager(ListMixin, CreateMixin, RESTManager):
-    _path = "/projects/%(project_id)s/repository/commits/%(commit_id)s" "/comments"
+    _path = "/projects/{project_id}/repository/commits/{commit_id}/comments"
     _obj_cls = ProjectCommitComment
     _from_parent_attrs = {"project_id": "project_id", "commit_id": "id"}
     _create_attrs = RequiredOptional(
@@ -163,7 +163,7 @@ class ProjectCommitStatus(RefreshMixin, RESTObject):
 
 
 class ProjectCommitStatusManager(ListMixin, CreateMixin, RESTManager):
-    _path = "/projects/%(project_id)s/repository/commits/%(commit_id)s" "/statuses"
+    _path = "/projects/{project_id}/repository/commits/{commit_id}/statuses"
     _obj_cls = ProjectCommitStatus
     _from_parent_attrs = {"project_id": "project_id", "commit_id": "id"}
     _create_attrs = RequiredOptional(
@@ -192,9 +192,9 @@ class ProjectCommitStatusManager(ListMixin, CreateMixin, RESTManager):
         # project_id and commit_id are in the data dict when using the CLI, but
         # they are missing when using only the API
         # See #511
-        base_path = "/projects/%(project_id)s/statuses/%(commit_id)s"
+        base_path = "/projects/{project_id}/statuses/{commit_id}"
         if "project_id" in data and "commit_id" in data:
-            path = base_path % data
+            path = base_path.format(**data)
         else:
             path = self._compute_path(base_path)
         return CreateMixin.create(self, data, path=path, **kwargs)
